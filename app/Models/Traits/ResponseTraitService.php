@@ -2,7 +2,7 @@
 /**
  * File that returns array for JSON response
  */
-namespace App\Models\Services\Tarits;
+namespace App\Models\Traits;
 
 /**
  * Class that returns Array for JSON response
@@ -23,6 +23,16 @@ trait ResponseTraitService
      * Array variable to collect generic errors
      */
     public $_response_data = array();
+    
+    /**
+     * @var array _fieldError
+     */
+    private $_fieldError = array();
+
+    /**
+     * @var array  _genricMessage
+     */
+    private $_genricMessage = array();
 
     /**
      * Function to build response array
@@ -52,36 +62,32 @@ trait ResponseTraitService
      * @return JSON \Illuminate\Http\Response
      */   
     public function responseArrayToJSON($response = array()) {
+        
         $json = array();
-        $success = false;
-
-        if ($response['status'] == true) {
-            $statusCode = 200;
-             $success = true;
-        } elseif (!empty($response['status_code'])) {
-            $statusCode = $response['status_code'];
-        } else {
+        $json['success'] = true;
+        $statusCode = 200;
+        
+        if ($response['status'] == false) {
             $statusCode = 400;
+            $json['success'] = false;
         }
 
-        $json['success'] = $success;
-
         if (!empty($response['data'])) {
-            $json['data'] = $response['data'];
+            $json['result'] = $response['data'];
         }
 
         if (!empty($response['message']['field'])) {
             foreach ($response['message']['field'] as $key => $item) {
-                $this->_fieldError[$key] = $this->getErrorCode($item);
+                $this->_fieldError[$key] = $item;
             }
             $json['messages'] = $this->_fieldError;
         }
 
         if (!empty($response['message']['global'])) {
             foreach ($response['message']['global'] as $message) {
-                $this->_genricMessage[] = $this->getErrorCode($message);
+                $this->_genricMessage[] = $message;
             }
-            $json['messages']['global'] =  $this->_genricMessage;
+            $json['messages'] =  $this->_genricMessage;
         }
         
         return response()->json($json);

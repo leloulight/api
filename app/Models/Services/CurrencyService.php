@@ -3,12 +3,21 @@
 use File;
 use Exception;
 use GuzzleHttp\Client;
+use App\Models\Traits\ResponseTraitService;
 
 /**
  * Class that returns Array for JSON response
  */
 class CurrencyService {
+    
+    /**
+     * Response trait
+     */
+    use ResponseTraitService;
 
+    /*
+     * Currency list json path
+     */
     private $currency_path;
 
     /**
@@ -27,7 +36,7 @@ class CurrencyService {
      * 
      * @return Array
      */
-    private function currencies() {
+    public function currencies() {
         
         $currencies = [];
         
@@ -52,8 +61,7 @@ class CurrencyService {
     public function checkCurrency( $currency ) {
 
         $currencies = $this->currencies();
-        
-        if( in_array( $currency, $currencies ) ) {
+        if( in_array( strtoupper( $currency ), $currencies ) ) {
             return true;
         }
         
@@ -68,15 +76,14 @@ class CurrencyService {
     public function getRate( $currency ) {
         
         $client   = new Client(['verify' => false, 'exceptions' => false]);
-        $response = $client->request( 'GET', $this->getAPIUrl( $currency ) );
+        $response = $client->request( 'GET', $this->getAPIUrl( $currency['both'] ) );
+        // If HTTP failed, show error
         if( $response->getStatusCode() != 200 ) {
-            return false;
+            $this->_errors_generic[] = 'HTTP error occured';
+            return $this->buildResponse();
         }
-        $result = $response->getBody();
-        $decoded = json_decode( $result, true );
-	$rate = $decoded['query']['results']['rate'];
         
-        return $rate;
+        return $this->makeResponseData( $response, $currency );
     }
     
     /**
@@ -88,8 +95,8 @@ class CurrencyService {
      */
     private function getAPIUrl( $currency ) {
         
-	$sql = 'select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22' . $currency . '%22)';
-	$url = 'https://query.yahooapis.com/v1/public/yql?q=' . $sql . '&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+	   $sql = 'select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22' . $currency . '%22)';
+	   $url = 'https://query.yahooapis.com/v1/public/yql?q=' . $sql . '&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
 	
         return $url;
     }
@@ -111,5 +118,31 @@ class CurrencyService {
         ];
         
         return $currencies;
+    }
+    
+    /**
+     * Create output JSON
+     * 
+     * @param Object $response
+     * @return JSON
+     */
+    public function makeResponseData( $response, $currency ) {
+        
+        $result = $response->getBody();
+        $decoded = json_decode( $result, true );
+        // We need only rate array data
+    	$rate = $decoded['query']['results']['rate'];
+            
+            $output = array(
+                'from' => $currency['from'],
+                'to' => $currency['to'],
+                'rate' => $rate['Rate'],
+                'date' => $rate['Date'],
+                'time' => $rate['Time']
+    	);
+        
+        $this->_response_data = $output;
+        // Make response
+        return $this->buildResponse();
     }
 }
