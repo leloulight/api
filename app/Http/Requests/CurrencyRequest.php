@@ -1,9 +1,12 @@
 <?php namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use App\Models\Traits\ResponseTraitService;
 
 class CurrencyRequest extends Request {
-
+    
+    use ResponseTraitService;
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -14,18 +17,6 @@ class CurrencyRequest extends Request {
     }
     
     /**
-     * Trim all input beofre processing
-     * 
-     * @return Array
-     */
-    public function all() {
-        
-        $array = array_map( 'trim', parent::all() );
-        
-        return parent::merge( $array );
-    }
-    
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -33,8 +24,23 @@ class CurrencyRequest extends Request {
     public function rules() {
         
         return [
-            'from' => 'required|max:3',
-            'to' => 'required|max:3'
+            'from' => 'required|currency_code|max:3',
+            'to' => 'required|currency_code|max:3'
         ];
+    }
+    
+    
+    /**
+     * Get the error messages as response json.
+     *
+     * @return array
+     */
+    public function response(array $errors) {
+        
+        foreach ($errors as $field => $error) {
+            $this->_errors_field[$field] = $error[0];
+        }
+        
+        return $this->buildResponse();
     }
 }
