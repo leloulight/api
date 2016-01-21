@@ -16,5 +16,9 @@ return array(
     '65fec9ebcfbb3cbb4fd0d519687aea01' => $vendorDir . '/danielstjules/stringy/src/Create.php',
     'f0906e6318348a765ffb6eb24e0d0938' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
     '58571171fd5812e6e447dce228f52f4d' => $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
+<<<<<<< HEAD
     '559dba61bcaafa74db6aa5e7e8759117' => $baseDir . '/app/Http/Helpers.php',
+=======
+    '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
+>>>>>>> 663c84e073c87fc4adbadc46b5d01124f2087db6
 );
