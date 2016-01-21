@@ -1,5 +1,8 @@
 <?php
 
+use \Frog\FrogController;
+use \Currency\CurrencyConverterController;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,14 +14,8 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+// Default page
+Route::get('/', FrogController::class.'@index');
 
-Route::get('home', 'HomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
-
-// Cuurency converter API
-Route::get('currency', 'CurrencyConverterController@convertCurrency');
+// Currency converter API
+Route::get('currency', CurrencyConverterController::class.'@convertCurrency');
