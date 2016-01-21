@@ -19,16 +19,34 @@ return array(
     'App\\Http\\Controllers\\WelcomeController' => $baseDir . '/app/Http/Controllers/WelcomeController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
+<<<<<<< HEAD
+    'App\\Http\\Middleware\\AutoTrimMiddleware' => $baseDir . '/app/Http/Middleware/AutoTrimMiddleware.php',
+    'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
+    'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Http\\Requests\\CurrencyRequest' => $baseDir . '/app/Http/Requests/CurrencyRequest.php',
+    'App\\Http\\Requests\\Request' => $baseDir . '/app/Http/Requests/Request.php',
+    'App\\Models\\Services\\CurrencyService' => $baseDir . '/app/Models/Services/CurrencyService.php',
+    'App\\Models\\Traits\\ResponseTraitService' => $baseDir . '/app/Models/Traits/ResponseTraitService.php',
+=======
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\Request' => $baseDir . '/app/Http/Requests/Request.php',
+>>>>>>> 663c84e073c87fc4adbadc46b5d01124f2087db6
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\BusServiceProvider' => $baseDir . '/app/Providers/BusServiceProvider.php',
     'App\\Providers\\ConfigServiceProvider' => $baseDir . '/app/Providers/ConfigServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+<<<<<<< HEAD
+    'App\\Providers\\ValidationServiceProvider' => $baseDir . '/app/Providers/ValidationServiceProvider.php',
+    'App\\Services\\CurrencyService' => $baseDir . '/app/Services/CurrencyService.php',
     'App\\Services\\Registrar' => $baseDir . '/app/Services/Registrar.php',
     'App\\User' => $baseDir . '/app/User.php',
+    'App\\Validators\\CustomValidator' => $baseDir . '/app/Validators/CustomValidator.php',
+=======
+    'App\\Services\\Registrar' => $baseDir . '/app/Services/Registrar.php',
+    'App\\User' => $baseDir . '/app/User.php',
+>>>>>>> 663c84e073c87fc4adbadc46b5d01124f2087db6
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'ClassPreloader\\Application' => $vendorDir . '/classpreloader/classpreloader/src/Application.php',
@@ -1428,6 +1446,8 @@ return array(
     'Prophecy\\Prophet' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Prophet.php',
     'Prophecy\\Util\\ExportUtil' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Util/ExportUtil.php',
     'Prophecy\\Util\\StringUtil' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Util/StringUtil.php',
+<<<<<<< HEAD
+=======
     'Psr\\Http\\Message\\MessageInterface' => $vendorDir . '/psr/http-message/src/MessageInterface.php',
     'Psr\\Http\\Message\\RequestInterface' => $vendorDir . '/psr/http-message/src/RequestInterface.php',
     'Psr\\Http\\Message\\ResponseInterface' => $vendorDir . '/psr/http-message/src/ResponseInterface.php',
@@ -1435,6 +1455,7 @@ return array(
     'Psr\\Http\\Message\\StreamInterface' => $vendorDir . '/psr/http-message/src/StreamInterface.php',
     'Psr\\Http\\Message\\UploadedFileInterface' => $vendorDir . '/psr/http-message/src/UploadedFileInterface.php',
     'Psr\\Http\\Message\\UriInterface' => $vendorDir . '/psr/http-message/src/UriInterface.php',
+>>>>>>> 663c84e073c87fc4adbadc46b5d01124f2087db6
     'Psr\\Log\\AbstractLogger' => $vendorDir . '/psr/log/Psr/Log/AbstractLogger.php',
     'Psr\\Log\\InvalidArgumentException' => $vendorDir . '/psr/log/Psr/Log/InvalidArgumentException.php',
     'Psr\\Log\\LogLevel' => $vendorDir . '/psr/log/Psr/Log/LogLevel.php',

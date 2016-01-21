@@ -2,7 +2,6 @@
 
 use File;
 use Exception;
-use GuzzleHttp\Client;
 use App\Models\Traits\ResponseTraitService;
 
 /**
@@ -74,11 +73,10 @@ class CurrencyService {
      * @return Mixed
      */
     public function getRate( $currency ) {
-        
-        $client   = new Client(['verify' => false, 'exceptions' => false]);
-        $response = $client->request( 'GET', $this->getAPIUrl( $currency['both'] ) );
+
+        $response = @file_get_contents( $this->getAPIUrl( $currency['both'] ) );
         // If HTTP failed, show error
-        if( $response->getStatusCode() != 200 ) {
+        if( $response === false ) {
             $this->_errors_generic[] = 'HTTP error occured';
             return $this->buildResponse();
         }
@@ -128,7 +126,7 @@ class CurrencyService {
      */
     public function makeResponseData( $response, $currency ) {
         
-        $result = $response->getBody();
+        $result = $response;
         $decoded = json_decode( $result, true );
         // We need only rate array data
     	$rate = $decoded['query']['results']['rate'];
