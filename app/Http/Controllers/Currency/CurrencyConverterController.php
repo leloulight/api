@@ -4,14 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CurrencyRequest;
 use App\Models\Services\CurrencyService;
-use App\Models\Traits\ResponseTraitService;
 
 class CurrencyConverterController extends Controller {
-    
-    /*
-     * Response trait service
-     */
-    use ResponseTraitService;
     
     /**
      * Currency service class object
